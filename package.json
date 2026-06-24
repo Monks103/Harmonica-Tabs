@@ -1,0 +1,20 @@
+{
+  "name": "harmonica-tabs",
+  "version": "1.1.0",
+  "description": "Obsidian plugin for harmonica tablature",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.21.5",
+    "obsidian": "latest",
+    "tslib": "2.6.3",
+    "typescript": "5.5.3"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true
+  }
+}

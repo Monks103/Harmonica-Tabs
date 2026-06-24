@@ -1,0 +1,55 @@
+.harp-tab {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 16px 20px 12px;
+  background: var(--background-secondary);
+  border-radius: 8px;
+  border-left: 3px solid #4fc3f7;
+  margin: 4px 0;
+}
+
+.harp-legend {
+  font-size: 0.75em;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.harp-legend-blow { color: #4fc3f7; font-weight: bold; }
+.harp-legend-draw { color: #ef5350; font-weight: bold; }
+
+.harp-label {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.harp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.harp-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4em;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 1.15em;
+  font-weight: bold;
+  background: var(--background-primary);
+  border: 1.5px solid var(--background-modifier-border);
+  line-height: 1;
+}
+
+.harp-blow {
+  color: #4fc3f7;
+  border-color: #4fc3f7;
+}
+
+.harp-draw {
+  color: #ef5350;
+  border-color: #ef5350;
+}

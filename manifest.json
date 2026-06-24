@@ -1,0 +1,10 @@
+{
+  "id": "harmonica-tabs",
+  "name": "Harmonica Tabs",
+  "version": "1.1.0",
+  "minAppVersion": "0.15.0",
+  "description": "Renders harmonica tablature with colored blow (+) and draw (-) notes",
+  "author": "sogi",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}
