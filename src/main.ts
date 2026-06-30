@@ -1,9 +1,19 @@
 import { Plugin } from "obsidian";
 
-const BLOW = "#4fc3f7";
-const DRAW = "#ef5350";
-const BLOW_RE = /^\+\d+$/;
-const DRAW_RE = /^-\d+$/;
+const BLOW_RE      = /^\+\d+$/;
+const DRAW_RE      = /^-\d+$/;
+const BEND_RE      = /^[+-]\d+'+$/;    // -2'  -3''  +9'
+const OVERBLOW_RE  = /^\+\d+\^$/;      // +4^  (overblow — blow hole)
+const OVERDRAW_RE  = /^-\d+\^$/;       // -4^  (overdraw — draw hole)
+
+function classify(token: string): string {
+	if (OVERBLOW_RE.test(token)) return "overblow";
+	if (OVERDRAW_RE.test(token)) return "overdraw";
+	if (BEND_RE.test(token))     return "bend";
+	if (BLOW_RE.test(token))     return "blow";
+	if (DRAW_RE.test(token))     return "draw";
+	return "";
+}
 
 export default class HarmonicaTabsPlugin extends Plugin {
 	private observer: MutationObserver | null = null;
@@ -35,9 +45,15 @@ export default class HarmonicaTabsPlugin extends Plugin {
 		const container = el.createDiv({ cls: "harp-tab" });
 
 		const legend = container.createDiv({ cls: "harp-legend" });
-		legend.createSpan({ cls: "harp-legend-blow", text: "▲ blow" });
+		legend.createSpan({ cls: "harp-legend-blow",     text: "▲ blow" });
 		legend.createSpan({ text: "  " });
-		legend.createSpan({ cls: "harp-legend-draw", text: "▼ draw" });
+		legend.createSpan({ cls: "harp-legend-draw",     text: "▼ draw" });
+		legend.createSpan({ text: "  " });
+		legend.createSpan({ cls: "harp-legend-bend",     text: "↓ bend" });
+		legend.createSpan({ text: "  " });
+		legend.createSpan({ cls: "harp-legend-overblow", text: "+^ overblow" });
+		legend.createSpan({ text: "  " });
+		legend.createSpan({ cls: "harp-legend-overdraw", text: "-^ overdraw" });
 
 		for (const line of source.trim().split("\n")) {
 			const trimmed = line.trim();
@@ -46,7 +62,7 @@ export default class HarmonicaTabsPlugin extends Plugin {
 			const tokens = trimmed.split(/\s+/);
 			const isNoteLine = tokens.some((t) => {
 				const clean = t.replace(/^\[|\]$/g, "");
-				return BLOW_RE.test(clean) || DRAW_RE.test(clean);
+				return classify(clean) !== "";
 			});
 
 			if (!isNoteLine) {
@@ -58,22 +74,23 @@ export default class HarmonicaTabsPlugin extends Plugin {
 			for (const token of tokens) {
 				const clean = token.replace(/^\[|\]$/g, "");
 				if (!clean) continue;
+				const type = classify(clean);
 				const span = row.createSpan({ cls: "harp-note", text: clean });
-				if (BLOW_RE.test(clean)) span.addClass("harp-blow");
-				else if (DRAW_RE.test(clean)) span.addClass("harp-draw");
+				if (type) span.addClass(`harp-${type}`);
 			}
 		}
 	}
 
 	private styleLink(a: HTMLAnchorElement) {
 		const text = a.textContent ?? "";
-		if (BLOW_RE.test(text)) {
-			a.style.setProperty("color", BLOW, "important");
-			a.style.setProperty("font-weight", "bold", "important");
-			a.style.setProperty("text-decoration", "none", "important");
-			a.style.setProperty("pointer-events", "none", "important");
-		} else if (DRAW_RE.test(text)) {
-			a.style.setProperty("color", DRAW, "important");
+		const type = classify(text);
+		const colorMap: Record<string, string> = {
+			blow: "#4fc3f7", draw: "#ef5350",
+			bend: "#66bb6a", overblow: "#ffa726", overdraw: "#ce93d8",
+		};
+		const color = colorMap[type] ?? null;
+		if (color) {
+			a.style.setProperty("color", color, "important");
 			a.style.setProperty("font-weight", "bold", "important");
 			a.style.setProperty("text-decoration", "none", "important");
 			a.style.setProperty("pointer-events", "none", "important");
@@ -81,14 +98,16 @@ export default class HarmonicaTabsPlugin extends Plugin {
 	}
 
 	private colorAll() {
+		const colorMap: Record<string, string> = {
+			blow: "#4fc3f7", draw: "#ef5350",
+			bend: "#66bb6a", overblow: "#ffa726", overdraw: "#ce93d8",
+		};
 		document.querySelectorAll(".cm-line .cm-link .cm-underline").forEach((el) => {
 			const span = el as HTMLSpanElement;
 			const text = span.textContent ?? "";
-			if (BLOW_RE.test(text)) {
-				span.style.color = BLOW;
-				span.style.fontWeight = "bold";
-			} else if (DRAW_RE.test(text)) {
-				span.style.color = DRAW;
+			const color = colorMap[classify(text)] ?? null;
+			if (color) {
+				span.style.color = color;
 				span.style.fontWeight = "bold";
 			}
 		});

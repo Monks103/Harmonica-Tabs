@@ -13,8 +13,11 @@
   opacity: 0.7;
 }
 
-.harp-legend-blow { color: #4fc3f7; font-weight: bold; }
-.harp-legend-draw { color: #ef5350; font-weight: bold; }
+.harp-legend-blow     { color: #4fc3f7; font-weight: bold; }
+.harp-legend-draw     { color: #ef5350; font-weight: bold; }
+.harp-legend-bend     { color: #66bb6a; font-weight: bold; }
+.harp-legend-overblow { color: #ffa726; font-weight: bold; }
+.harp-legend-overdraw { color: #ce93d8; font-weight: bold; }
 
 .harp-label {
   font-size: 0.85em;
@@ -44,12 +47,8 @@
   line-height: 1;
 }
 
-.harp-blow {
-  color: #4fc3f7;
-  border-color: #4fc3f7;
-}
-
-.harp-draw {
-  color: #ef5350;
-  border-color: #ef5350;
-}
+.harp-blow     { color: #4fc3f7; border-color: #4fc3f7; }
+.harp-draw     { color: #ef5350; border-color: #ef5350; }
+.harp-bend     { color: #66bb6a; border-color: #66bb6a; }
+.harp-overblow { color: #ffa726; border-color: #ffa726; }
+.harp-overdraw { color: #ce93d8; border-color: #ce93d8; }
