@@ -1,8 +1,10 @@
-<div align="center">
-
 # 🎵 Harmonica Tabs for Obsidian
 
-<img src="https://img.shields.io/badge/%E2%96%B2%20blow-%234fc3f7?style=flat-square" alt="blow"> <img src="https://img.shields.io/badge/%E2%96%BC%20draw-%23ef5350?style=flat-square" alt="draw"> <img src="https://img.shields.io/badge/%E2%86%93%20bend-%2366bb6a?style=flat-square" alt="bend"> <img src="https://img.shields.io/badge/%2B%5E%20overblow-%23ffa726?style=flat-square" alt="overblow"> <img src="https://img.shields.io/badge/-%5E%20overdraw-%23ce93d8?style=flat-square" alt="overdraw">
+![blow](https://img.shields.io/badge/▲%20blow-%234fc3f7?style=flat-square)
+![draw](https://img.shields.io/badge/▼%20draw-%23ef5350?style=flat-square)
+![bend](https://img.shields.io/badge/↓%20bend-%2366bb6a?style=flat-square)
+![overblow](https://img.shields.io/badge/+^%20overblow-%23ffa726?style=flat-square)
+![overdraw](https://img.shields.io/badge/-^%20overdraw-%23ce93d8?style=flat-square)
 
 [![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](manifest.json)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
@@ -11,8 +13,6 @@
 **Renders harmonica tablature with color-coded notes directly in your Obsidian vault**
 
 *Built by [MusanaINC](https://github.com/monks103)*
-
-</div>
 
 ---
 
