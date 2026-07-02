@@ -15,6 +15,20 @@ function classify(token: string): string {
 	return "";
 }
 
+// --- Chromatic (charp) — separate notation, separate rules ---
+const C_BLOW_RE       = /^\+\d+$/;
+const C_DRAW_RE       = /^-\d+$/;
+const C_SLIDE_BLOW_RE = /^\+\d+#$/;   // +4#  (slide pressed on blow hole)
+const C_SLIDE_DRAW_RE = /^-\d+#$/;    // -4#  (slide pressed on draw hole)
+
+function classifyChromatic(token: string): string {
+	if (C_SLIDE_BLOW_RE.test(token)) return "slide";
+	if (C_SLIDE_DRAW_RE.test(token)) return "slide";
+	if (C_BLOW_RE.test(token))       return "blow";
+	if (C_DRAW_RE.test(token))       return "draw";
+	return "";
+}
+
 export default class HarmonicaTabsPlugin extends Plugin {
 	private observer: MutationObserver | null = null;
 	private rafId: number | null = null;
@@ -22,6 +36,10 @@ export default class HarmonicaTabsPlugin extends Plugin {
 	async onload() {
 		this.registerMarkdownCodeBlockProcessor("harp", (source, el) => {
 			this.renderHarpBlock(source, el);
+		});
+
+		this.registerMarkdownCodeBlockProcessor("charp", (source, el) => {
+			this.renderCharpBlock(source, el);
 		});
 
 		this.registerMarkdownPostProcessor((el) => {
@@ -77,6 +95,42 @@ export default class HarmonicaTabsPlugin extends Plugin {
 				const type = classify(clean);
 				const span = row.createSpan({ cls: "harp-note", text: clean });
 				if (type) span.addClass(`harp-${type}`);
+			}
+		}
+	}
+
+	private renderCharpBlock(source: string, el: HTMLElement) {
+		const container = el.createDiv({ cls: "charp-tab" });
+
+		const legend = container.createDiv({ cls: "charp-legend" });
+		legend.createSpan({ cls: "charp-legend-blow",  text: "▲ blow" });
+		legend.createSpan({ text: "  " });
+		legend.createSpan({ cls: "charp-legend-draw",  text: "▼ draw" });
+		legend.createSpan({ text: "  " });
+		legend.createSpan({ cls: "charp-legend-slide", text: "# slide" });
+
+		for (const line of source.trim().split("\n")) {
+			const trimmed = line.trim();
+			if (!trimmed) continue;
+
+			const tokens = trimmed.split(/\s+/);
+			const isNoteLine = tokens.some((t) => {
+				const clean = t.replace(/^\[|\]$/g, "");
+				return classifyChromatic(clean) !== "";
+			});
+
+			if (!isNoteLine) {
+				container.createDiv({ cls: "charp-label", text: trimmed });
+				continue;
+			}
+
+			const row = container.createDiv({ cls: "charp-row" });
+			for (const token of tokens) {
+				const clean = token.replace(/^\[|\]$/g, "");
+				if (!clean) continue;
+				const type = classifyChromatic(clean);
+				const span = row.createSpan({ cls: "charp-note", text: clean });
+				if (type) span.addClass(`charp-${type}`);
 			}
 		}
 	}

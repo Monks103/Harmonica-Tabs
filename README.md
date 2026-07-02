@@ -5,8 +5,9 @@
 ![bend](https://img.shields.io/badge/↓%20bend-%2366bb6a?style=flat-square)
 ![overblow](https://img.shields.io/badge/+^%20overblow-%23ffa726?style=flat-square)
 ![overdraw](https://img.shields.io/badge/-^%20overdraw-%23ce93d8?style=flat-square)
+![slide](https://img.shields.io/badge/%23%20slide-%23ffd600?style=flat-square)
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)](manifest.json)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue?style=flat-square)](manifest.json)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 [![Obsidian](https://img.shields.io/badge/Obsidian-0.15+-7c3aed?style=flat-square)](https://obsidian.md)
 
@@ -60,6 +61,27 @@ Plain text lines with no note symbols become section labels. Everything else is 
 
 ---
 
+## Chromatic harps
+
+Chromatic harmonicas get their own `charp` code block — the slide button needs different notation than diatonic bends, so it's a fully separate block rather than overloaded syntax.
+
+````markdown
+```charp
++4 -4 +4# -4# +5 -5
+```
+````
+
+| Symbol | Meaning |
+|--------|---------|
+| `+N` | Blow hole N |
+| `-N` | Draw hole N |
+| `+N#` | Blow hole N, slide pressed (half step up) |
+| `-N#` | Draw hole N, slide pressed (half step up) |
+
+Section labels and multi-line layout work the same as `harp` blocks.
+
+---
+
 ## Installation
 
 ### From Community Plugins
@@ -76,7 +98,7 @@ Search for **Harmonica Tabs** in Settings → Community Plugins.
 
 ## Examples
 
-The `examples/` folder has ready-to-use tabs sorted by genre — Blues, Classic, Folk, Irish, and Christmas. Copy any `.md` file into your vault to get started.
+The `examples/` folder has ready-to-use tabs sorted by genre — Blues, Classic, Folk, Irish, Christmas, and Chromatic. Copy any `.md` file into your vault to get started.
 
 ---
 

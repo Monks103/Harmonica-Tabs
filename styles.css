@@ -52,3 +52,54 @@
 .harp-bend     { color: #66bb6a; border-color: #66bb6a; }
 .harp-overblow { color: #ffa726; border-color: #ffa726; }
 .harp-overdraw { color: #ce93d8; border-color: #ce93d8; }
+
+.charp-tab {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 16px 20px 12px;
+  background: var(--background-secondary);
+  border-radius: 8px;
+  border-left: 3px solid #ffd600;
+  margin: 4px 0;
+}
+
+.charp-legend {
+  font-size: 0.75em;
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+
+.charp-legend-blow  { color: #4fc3f7; font-weight: bold; }
+.charp-legend-draw  { color: #ef5350; font-weight: bold; }
+.charp-legend-slide { color: #ffd600; font-weight: bold; }
+
+.charp-label {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-style: italic;
+}
+
+.charp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.charp-note {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4em;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 1.15em;
+  font-weight: bold;
+  background: var(--background-primary);
+  border: 1.5px solid var(--background-modifier-border);
+  line-height: 1;
+}
+
+.charp-blow  { color: #4fc3f7; border-color: #4fc3f7; }
+.charp-draw  { color: #ef5350; border-color: #ef5350; }
+.charp-slide { color: #ffd600; border-color: #ffd600; }
